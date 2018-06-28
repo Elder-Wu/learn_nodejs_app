@@ -9,16 +9,16 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(process.cwd(), 'public')));
 
 // view
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(process.cwd(), 'views'));
 app.set('view engine', 'ejs');
 
 //router
-const indexRouter = require('../routes/static/index');
+const indexRouter = require('../router/form/index');
 app.use('/', indexRouter);
-const usersRouter = require('../routes/api/users');
+const usersRouter = require('../router/api/users');
 app.use('/users', usersRouter);
 
 
