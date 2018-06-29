@@ -1,5 +1,5 @@
 class Dialog {
-    static show(options) {
+    static show(options = {}) {
         const title = options.title || "提示"
         const msg = options.msg || ""
         const positiveName = options.positiveName || "确定"
@@ -36,13 +36,11 @@ class Dialog {
         positiveButton.setAttribute("class", "btn btn-primary")
         positiveButton.setAttribute("data-dismiss", "modal")
         positiveButton.innerText = positiveName
-        if (positiveFn) {
-            $(positiveButton).click(function () {
-                $(dialogContainer).on('hidden.bs.modal', function () {
-                    positiveFn()
-                });
-            })
-        }
+
+        const negativeButton = document.createElement("button")
+        negativeButton.setAttribute("class", "btn btn-default")
+        negativeButton.setAttribute("data-dismiss", "modal")
+        negativeButton.innerText = '关闭'
 
         document.getElementsByTagName("body")[0].appendChild(dialogContainer)
         dialogContainer.appendChild(dialogDocument)
@@ -50,13 +48,26 @@ class Dialog {
         dialogContent.appendChild(dialogHeader)
         dialogContent.appendChild(dialogBody)
         dialogContent.appendChild(dialogFooter)
+        dialogFooter.appendChild(negativeButton)
         dialogFooter.appendChild(positiveButton)
+
+        if (positiveFn) {
+            $(positiveButton).click(function () {
+                positiveFn()
+            })
+        }
 
         $(dialogContainer).on('hidden.bs.modal', function () {
             document.getElementsByTagName("body")[0].removeChild(dialogContainer)
         })
+
         $(dialogContainer).modal('show')
     }
+
+    static default(msg) {
+        this.show({msg: msg})
+    }
 }
+
 
 export default Dialog

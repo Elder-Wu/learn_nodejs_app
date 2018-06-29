@@ -1,7 +1,3 @@
-// import Dialog from "../../../module/common/dialog"
-// Dialog.show({
-//     title: "标题",
-//     msg: "欢迎来到webpack"
-// })
+import Dialog from "../../../module/common/dialog"
 
-alert("123")
+Dialog.default("欢迎大家来到Webpack大家庭")
