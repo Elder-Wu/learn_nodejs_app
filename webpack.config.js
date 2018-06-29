@@ -1,10 +1,20 @@
 const webpack = require('webpack');
+const path = require("path")
+
+const publicPath = "public"
+
+let jsName = "index"
+const index = {
+    entry: path.resolve(publicPath, `${jsName}/js/${jsName}.js`),
+    path: path.resolve(publicPath, `${jsName}/js`),
+    filename: `${jsName}.bundle.js`
+}
 
 module.exports = {
-    entry: "./public/index/js/index.js",
+    entry: index.entry,
     output: {
-        path: __dirname + "/public/index/js",
-        filename: "index.bundle.js"
+        path: index.path,
+        filename: index.filename
     },
     module: {
         rules: [
