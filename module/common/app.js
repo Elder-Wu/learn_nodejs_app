@@ -12,11 +12,11 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(process.cwd(), 'public')));
 
 // view
-app.set('views', path.join(process.cwd(), 'views'));
+app.set('views', path.join(process.cwd(), 'public'));
 app.set('view engine', 'ejs');
 
 //router
-const indexRouter = require('../router/form/index');
+const indexRouter = require('../router/page/index');
 app.use('/', indexRouter);
 const usersRouter = require('../router/api/users');
 app.use('/users', usersRouter);
@@ -33,7 +33,7 @@ app.use(function (err, req, res, next) {
         statusCode: err.statusCode || 500,
         stack: utils.isDevMode() ? err.stack : undefined
     }
-    res.render('error', options);
+    res.render('error/error', options);
 });
 
 module.exports = app;
