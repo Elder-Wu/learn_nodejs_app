@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
     const options = {
         title: name + " " + age,
     }
-    res.render("index", options)
+    res.send({name: name, age: age, sex: "男"})
 });
 
 module.exports = router;
