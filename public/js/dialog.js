@@ -64,7 +64,7 @@ class Dialog {
         $(dialogContainer).modal('show')
     }
 
-    static default(msg) {
+    static showDefault(msg) {
         this.show({msg: msg})
     }
 }
