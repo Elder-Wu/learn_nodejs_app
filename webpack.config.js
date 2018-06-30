@@ -11,6 +11,7 @@ const index = {
 }
 
 module.exports = {
+    mode: "production",
     entry: index.entry,
     output: {
         path: index.path,
