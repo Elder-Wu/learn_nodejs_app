@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-const createError = require('http-errors');
 const express = require('express');
 const http = require('http');
 const path = require('path');
 
-const isDevMode = process.env.NODE_ENV !== "production"
 const app = express();
 
+//第三方中间件
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
@@ -19,23 +18,19 @@ app.set('views', path.join(process.cwd(), 'public'));
 app.set('view engine', 'ejs');
 
 //router
-const indexRouter = require('./router/page/index');
+const indexRouter = require('./router/index');
 app.use('/', indexRouter);
-const usersRouter = require('./router/api/users');
+const usersRouter = require('./api/users');
 app.use('/users', usersRouter);
 
-
+// 404 中间件
 app.use(function (req, res, next) {
-    next(createError(404));
+    next()
 });
 
+//统一错误处理
 app.use(function (err, req, res, next) {
-    const options = {
-        message: err.message,
-        statusCode: err.statusCode || 500,
-        stack: isDevMode ? err.stack : undefined
-    }
-    res.render('error/error', options);
+    res.send(err.message)
 });
 
 const port = 3000;
